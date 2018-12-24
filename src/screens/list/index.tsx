@@ -1,31 +1,14 @@
-import React, { Component } from "react";
-import {
-  Text,
-  View,
-  TextInputProps,
-  TextProps,
-  TouchableOpacityProps,
-  ViewProps,
-  Image,
-  Dimensions,
-  ScrollView
-} from "react-native";
+import * as React from "react";
+import { ScrollView, StyleSheet } from "react-native";
 import styled from "styled-components/native";
-import Divider from "src/commons/components/atoms/divider";
 import ImageBook from "./components/ImageBook";
-const { width, height } = Dimensions.get("window");
 
-const widthImg = width / 3;
-const heightImg = height / 3.5;
-
-export default class HomeScreen extends Component {
+export default class HomeScreen extends React.Component {
   render() {
     return (
       <Container>
-        <ScrollView
-          contentContainerStyle={{ flexWrap: "wrap", flexDirection: "row" }}
-        >
-          <ImageBook />
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <ImageBook title="Harry" />
           <ImageBook />
           <ImageBook />
           <ImageBook />
@@ -43,7 +26,14 @@ export default class HomeScreen extends Component {
   }
 }
 
-const Container = styled.SafeAreaView<ViewProps>`
+const styles = StyleSheet.create({
+  scrollView: {
+    flexWrap: "wrap",
+    flexDirection: "row"
+  }
+});
+
+const Container = styled.SafeAreaView`
   flex: 1;
   background-color: yellow;
   padding: 10px;

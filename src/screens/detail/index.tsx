@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { Text, TouchableOpacity, ScrollView } from "react-native";
+import * as React from "react";
 import styled from "styled-components/native";
 import Divider from "src/commons/components/atoms/divider";
 import ImageBook from "../list/components/ImageBook";
@@ -8,7 +7,7 @@ import Button from "./components/button";
 import FavoriteIcon from "./components/favoriteIcon";
 import DescriptionBook from "./components/description";
 
-interface DetailScreenProps {
+interface Props {
   title: string;
   subtitle: string;
   pages: string;
@@ -16,7 +15,7 @@ interface DetailScreenProps {
   rating: number;
 }
 
-export default class DetailScreen extends Component<DetailScreenProps> {
+export default class DetailScreen extends React.Component<Props> {
   static defaultProps = {
     title: "Logo Design Love: A Guide to Creating Iconic Brand Identities",
     subtitle: "by David Airey",
@@ -28,7 +27,7 @@ export default class DetailScreen extends Component<DetailScreenProps> {
     const { title, subtitle, pages, value, rating } = this.props;
     return (
       <Container>
-        <BookHeaderContainer>
+        <BookDetail>
           <Left>
             <ImageBook />
             <Pages>{pages}</Pages>
@@ -37,8 +36,6 @@ export default class DetailScreen extends Component<DetailScreenProps> {
           <Right>
             <Up>
               <Title>{title}</Title>
-              <Divider />
-
               <SubTitle>{subtitle}</SubTitle>
               <Divider />
 
@@ -54,7 +51,7 @@ export default class DetailScreen extends Component<DetailScreenProps> {
               <FavoriteIcon />
             </Down>
           </Right>
-        </BookHeaderContainer>
+        </BookDetail>
         <DescriptionBook />
       </Container>
     );
@@ -69,7 +66,7 @@ const Up = styled.View`
 const Down = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: 10px;
+  padding: 10px 0;
   justify-content: flex-end;
   align-content: flex-end;
 `;
@@ -81,8 +78,6 @@ const Left = styled.View`
 
 const Right = styled.View`
   flex-direction: column;
-  justify-content: space-between;
-  align-content: space-between;
   padding: 10px;
   flex: 1;
 `;
@@ -93,7 +88,7 @@ const Container = styled.SafeAreaView`
   flex-direction: column;
 `;
 
-const BookHeaderContainer = styled.View`
+const BookDetail = styled.View`
   flex-direction: row;
   margin: 5px;
 `;

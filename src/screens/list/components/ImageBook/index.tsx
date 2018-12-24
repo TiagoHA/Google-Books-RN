@@ -1,14 +1,14 @@
 import React from "react";
-import { Image, Dimensions, ViewProps, StyleSheet } from "react-native";
+import { Image, Dimensions, StyleSheet } from "react-native";
 import styled from "styled-components/native";
 const { width, height } = Dimensions.get("window");
 
-interface ImageBookProps {
+interface Props {
   image?: string;
   title?: string;
 }
 
-export default function ImageBook(props: ImageBookProps) {
+export default function ImageBook(props: Props) {
   const { image, title } = props;
 
   return (
@@ -50,14 +50,14 @@ const styles = StyleSheet.create({
   }
 });
 
-const Container = styled.View<ViewProps>`
+const Container = styled.TouchableOpacity`
   margin: 2px;
   padding: 5px;
   height: ${dimensionsContainer.height}px;
   width: ${dimensionsContainer.width}px;
 `;
 
-const TitleContainer = styled.View<ViewProps>`
+const TitleContainer = styled.View`
   width: ${dimensions.width}px;
   background-color: rgba(52, 52, 52, 0.7);
   z-index: 1;

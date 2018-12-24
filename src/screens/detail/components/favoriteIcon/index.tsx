@@ -25,9 +25,9 @@ export default class FavoriteIcon extends Component<Props, State> {
   render() {
     const { active } = this.state;
     return (
-      <Favorite active={active}>
+      <Favorite>
         <FavIcon
-          name={active ? "heart-outline" : "heart"}
+          name={active ? "heart" : "heart-outline"}
           onPress={this.onPress}
           active={active}
         />
@@ -37,7 +37,7 @@ export default class FavoriteIcon extends Component<Props, State> {
 }
 
 const Favorite = styled.TouchableOpacity`
-  background-color: ${props => (props.active ? "red" : "yellow")};
+  background-color: red;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -48,5 +48,5 @@ const Favorite = styled.TouchableOpacity`
 
 const FavIcon = styled(Icon)`
   font-size: 23px;
-  color: ${props => (props.active ? "white" : "black")};
+  color: white;
 `;
