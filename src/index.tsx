@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Provider } from "react-redux";
 import Routes from "src/routes";
-
-import "config/ReactotronConfig";
+import "src/config/ReactotronConfig";
 import store from "src/store";
 
 /* const AppStore = () => (
@@ -12,7 +11,11 @@ import store from "src/store";
 ); */
 
 function App() {
-  return <Routes />;
+  return (
+    <>
+      <Routes />
+    </>
+  );
 }
 
 export default App;

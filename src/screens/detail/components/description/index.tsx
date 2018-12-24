@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native";
+import React from "react";
+import { ScrollView, StyleSheet } from "react-native";
 import styled from "styled-components/native";
 
 interface Props {
