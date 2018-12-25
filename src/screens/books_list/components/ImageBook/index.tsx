@@ -6,22 +6,24 @@ const { width, height } = Dimensions.get("window");
 interface Props {
   image?: string;
   title?: string;
+  onPress?: Function;
 }
 
 export default function ImageBook(props: Props) {
-  const { image, title } = props;
+  const { image, title, onPress } = props;
+  const newTitle = cutText(title);
 
   return (
-    <Container>
+    <Container onPress={onPress}>
       <Image
         source={{
-          uri: image
+          uri: image || imageBookDefault
         }}
         style={styles.image}
       />
-      {title && (
+      {!!title && (
         <TitleContainer>
-          <BookTitle>{title}</BookTitle>
+          <BookTitle>{newTitle}</BookTitle>
         </TitleContainer>
       )}
     </Container>
@@ -29,9 +31,20 @@ export default function ImageBook(props: Props) {
 }
 
 ImageBook.defaultProps = {
-  image:
-    "http://books.google.com/books/content?id=WV8pZj_oNBwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+  title: "",
+  image: ""
 };
+
+const imageBookDefault =
+  "https://www.google.com.br/url?sa=i&source=images&cd=&ved=2ahUKEwjqopHTx7vfAhVHj5AKHV6SCvYQjRx6BAgBEAU&url=https%3A%2F%2Fsmartmobilestudio.com%2Fdocumentation%2Fget-the-book%2F&psig=AOvVaw3IcJOpE9PasMTpprCjmIGR&ust=154584717244054";
+export function cutText(text: String = "", maxLetters: number = 40) {
+  if (text.length <= 0) {
+    return "";
+  } else if (text.length >= maxLetters) {
+    return `${text.substring(0, maxLetters)}...`;
+  }
+  return text;
+}
 
 const dimensionsContainer = {
   width: width / 3.4,

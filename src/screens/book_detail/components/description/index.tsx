@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import styled from "styled-components/native";
 
 interface Props {
@@ -9,42 +9,35 @@ interface Props {
 export default function DescriptionBook(props: Props) {
   const { description } = props;
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Description>{description}</Description>
-    </ScrollView>
+    <Container>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Description>{description}</Description>
+      </ScrollView>
+    </Container>
   );
 }
 
 DescriptionBook.defaultProps = {
-  description: `JDIOAJSD JSDIOJAOSJID AIOSJDAIOSJ DIOASJIODAJ IOAJSDOIAJS JIOASJDASIO
-    askdpoaksdaopsk KODPAOKSDPAOKSD APSOKDAPSKDASOPKD ASDKOAPKSDPOAKSD
-    SAKODKAPSDKA AKSDOPKAPSD AKSDPOAKSDPAKSPDK KAOPSDKAS
-    APOSDKAPOSKDPOASKDPO ASKDOPAKSDP APSDKAPSOK PAOSKDPOAKSDOPASKDOPAKSDPOK
-    SDKOPAKDSPAKSD PAOSKDPOAKSDOPASKDOPAKSDPOK SDKPAOSKD APSOKDAPSKDASOPKD
-    DAPOSKDOAPSD DSKAOPSDKA SDAOPKSDAOPKSD AKSDOPAKSDPOAKSD KSDOPAKDPOAKSD
-    SKDAOPKDSPOKAS JDIOAJSD JSDIOJAOSJID AIOSJDAIOSJ DIOASJIODAJ IOAJSDOIAJS
-    JIOASJDASIO askdpoaksdaopsk KODPAOKSDPAOKSD APSOKDAPSKDASOPKD
-    ASDKOAPKSDPOAKSD SAKODKAPSDKA AKSDOPKAPSD AKSDPOAKSDPAKSPDK KAOPSDKAS
-    APOSDKAPOSKDPOASKDPO ASKDOPAKSDP APSDKAPSOK PAOSKDPOAKSDOPASKDOPAKSDPOK
-    SDKOPAKDSPAKSD PAOSKDPOAKSDOPASKDOPAKSDPOK SDKPAOSKD APSOKDAPSKDASOPKD
-    DAPOSKDOAPSD DSKAOPSDKA SDAOPKSDAOPKSD AKSDOPAKSDPOAKSD KSDOPAKDPOAKSD
-    SKDAOPKDSPOKAS JDIOAJSD JSDIOJAOSJID AIOSJDAIOSJ DIOASJIODAJ IOAJSDOIAJS
-    JIOASJDASIO askdpoaksdaopsk KODPAOKSDPAOKSD APSOKDAPSKDASOPKD
-    ASDKOAPKSDPOAKSD SAKODKAPSDKA AKSDOPKAPSD AKSDPOAKSDPAKSPDK KAOPSDKAS
-    APOSDKAPOSKDPOASKDPO ASKDOPAKSDP APSDKAPSOK PAOSKDPOAKSDOPASKDOPAKSDPOK
-    SDKOPAKDSPAKSD PAOSKDPOAKSDOPASKDOPAKSDPOK SDKPAOSKD APSOKDAPSKDASOPKD
-    DAPOSKDOAPSD DSKAOPSDKA SDAOPKSDAOPKSD AKSDOPAKSDPOAKSD KSDOPAKDPOAKSD
-    SKDAOPKDSPOKAS`
+  description: "No description"
 };
+
+const Container = styled.View`
+  flex-direction: row;
+  flex: 1;
+`;
 
 const Description = styled.Text`
   line-height: 25;
+  flex: 1;
+  min-height: 600px;
 `;
 
 const styles = StyleSheet.create({
   container: {
     flex: 0,
     backgroundColor: "white",
-    padding: 10
+    padding: 10,
+    flexDirection: "column",
+    paddingBottom: 30
   }
 });

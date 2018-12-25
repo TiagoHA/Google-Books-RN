@@ -13,6 +13,7 @@ const Routes = createAppContainer(
       List: { screen: ListScreen }
     },
     {
+      initialRouteName: "Home",
       defaultNavigationOptions: {
         headerStyle: {
           backgroundColor: colors.primaryDark

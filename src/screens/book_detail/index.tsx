@@ -6,41 +6,75 @@ import Stars from "./components/stars";
 import Button from "./components/button";
 import FavoriteIcon from "./components/favoriteIcon";
 import DescriptionBook from "./components/description";
+import { connect } from "react-redux";
+import { Container, Row, Title } from "../home/styles";
+import {
+  BookDetail,
+  Left,
+  Pages,
+  Right,
+  Up,
+  Column,
+  Authors,
+  Down
+} from "./styles";
 
 interface Props {
   title: string;
-  subtitle: string;
+  authors: string;
   pages: string;
-  value: string;
+  price: string;
   rating: number;
+  image: string;
+  description: string;
+  saleability: string;
 }
 
-export default class DetailScreen extends React.Component<Props> {
+class DetailScreen extends React.Component<Props> {
+  static navigationOptions = {
+    title: "Book Detail"
+  };
   static defaultProps = {
     title: "Logo Design Love: A Guide to Creating Iconic Brand Identities",
-    subtitle: "by David Airey",
+    authors: "by David Airey",
     pages: "2016 Pages",
-    value: "$9.99",
-    rating: 2
+    price: "$9.99",
+    rating: 2,
+    image:
+      "https://www.google.com.br/url?sa=i&source=images&cd=&ved=2ahUKEwjqopHTx7vfAhVHj5AKHV6SCvYQjRx6BAgBEAU&url=https%3A%2F%2Fsmartmobilestudio.com%2Fdocumentation%2Fget-the-book%2F&psig=AOvVaw3IcJOpE9PasMTpprCjmIGR&ust=154584717244054"
   };
+
   render() {
-    const { title, subtitle, pages, value, rating } = this.props;
+    console.tron.log("PROPS DETAIL: ", this.props);
+    const {
+      title,
+      authors,
+      pages,
+      price,
+      rating,
+      description,
+      image,
+      saleability
+    } = this.props;
     return (
       <Container>
         <BookDetail>
           <Left>
-            <ImageBook />
+            <ImageBook image={image} />
             <Pages>{pages}</Pages>
           </Left>
 
           <Right>
             <Up>
-              <Title>{title}</Title>
-              <SubTitle>{subtitle}</SubTitle>
-              <Divider />
+              <Row>
+                <Column>
+                  <Title length={title.length}>{title}</Title>
+                  <Authors>{authors.slice(0, 60)}</Authors>
+                </Column>
+              </Row>
 
               <Row>
-                <Title>{value}</Title>
+                <Title>{price}</Title>
                 <Divider />
                 <Stars rating={rating} />
               </Row>
@@ -52,67 +86,39 @@ export default class DetailScreen extends React.Component<Props> {
             </Down>
           </Right>
         </BookDetail>
-        <DescriptionBook />
+        <DescriptionBook description={description} />
       </Container>
     );
   }
 }
 
-const Up = styled.View`
-  flex-direction: column;
-  flex: 1;
-`;
+const mapStateToProps = ({
+  bookDetail: {
+    detail: {
+      volumeInfo: {
+        pageCount,
+        title,
+        authors,
+        averageRating,
+        description,
+        imageLinks: { thumbnail } = { thumbnail: false }
+      },
+      saleInfo: { saleability, listPrice: { amount } = { amount: false } }
+    }
+  }
+}) => ({
+  pages: pageCount ? `pages ${pageCount}` : "",
+  title: title,
+  authors: !authors
+    ? ""
+    : authors.length < 50
+    ? `by ${authors}`
+    : `by ${authors.slice(0, 80)}...`,
+  rating: averageRating,
+  description: description,
+  image: thumbnail,
+  saleability: saleability,
+  price: amount ? `$ ${amount}` : ""
+});
 
-const Down = styled.View`
-  flex-direction: row;
-  align-items: center;
-  padding: 10px 0;
-  justify-content: flex-end;
-  align-content: flex-end;
-`;
-
-const Left = styled.View`
-  flex-direction: column;
-  padding: 20px 5px;
-`;
-
-const Right = styled.View`
-  flex-direction: column;
-  padding: 10px;
-  flex: 1;
-`;
-
-const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: yellow;
-  flex-direction: column;
-`;
-
-const BookDetail = styled.View`
-  flex-direction: row;
-  margin: 5px;
-`;
-
-const Title = styled.Text`
-  font-weight: 600;
-  font-family: Roboto-Bold;
-  font-size: 20px;
-`;
-
-const SubTitle = styled.Text`
-  font-family: Roboto-Regular;
-  font-size: 14px;
-  color: gray;
-`;
-
-const Pages = styled.Text`
-  font-family: Roboto-Regular;
-  font-size: 14px;
-  color: gray;
-  font-weight: 400;
-  align-self: center;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-`;
+export default connect(mapStateToProps)(DetailScreen);

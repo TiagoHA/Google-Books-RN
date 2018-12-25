@@ -3,7 +3,7 @@ import { ActivityIndicator } from "react-native";
 import { colors } from "src/styles";
 
 interface Props {
-  children: Function | undefined | null;
+  children: JSX.Element;
   isLoading: boolean;
 }
 
@@ -11,8 +11,13 @@ export default function Loading(props: Props) {
   const { isLoading, children } = props;
 
   if (isLoading) {
-    return <ActivityIndicator style={{ backgroundColor: colors.secondary }} />;
+    return <ActivityIndicator style={{ flex: 1 }} />;
   }
 
   return children;
 }
+
+Loading.defaultProps = {
+  isLoading: false,
+  children: null
+};
