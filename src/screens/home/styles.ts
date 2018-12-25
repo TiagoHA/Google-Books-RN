@@ -31,11 +31,10 @@ export const Row = styled.View`
 export const Title = styled.Text.attrs(({ title }) => ({
   title: title < 40 ? 25 : 18
 }))`
-  padding: 10px;
   font-weight: 700;
   font-family: Roboto-Bold;
   font-size: ${props => props.title}px;
-  margin-bottom: ${metrics.baseMargin}px;
+  margin-bottom: 5px;
 `;
 
 export const SubTitle = styled.Text`
