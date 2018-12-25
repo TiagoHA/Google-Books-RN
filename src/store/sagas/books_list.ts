@@ -2,8 +2,6 @@ import { call, put, select } from "redux-saga/effects";
 import api from "src/services/api";
 
 import { Creators as BooksListActions } from "src/store/ducks/books_list";
-import { Alert } from "react-native";
-import { Convert } from "src/models/booksModel";
 
 export function* getBooksRequest(action) {
   try {
