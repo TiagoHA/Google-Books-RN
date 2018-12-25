@@ -2,8 +2,8 @@ import { createAppContainer, createStackNavigator } from "react-navigation";
 import colors from "src/styles/colors";
 
 import HomeScreen from "src/screens/home";
-import DetailScreen from "src/screens/detail";
-import ListScreen from "src/screens/list";
+import DetailScreen from "src/screens/book_detail";
+import ListScreen from "src/screens/books_list";
 
 const Routes = createAppContainer(
   createStackNavigator(

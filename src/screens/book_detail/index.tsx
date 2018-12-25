@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components/native";
 import Divider from "src/commons/components/atoms/divider";
-import ImageBook from "../list/components/ImageBook";
+import ImageBook from "../books_list/components/ImageBook";
 import Stars from "./components/stars";
 import Button from "./components/button";
 import FavoriteIcon from "./components/favoriteIcon";
@@ -111,10 +111,6 @@ const Pages = styled.Text`
   color: gray;
   font-weight: 400;
   align-self: center;
-`;
-
-const Column = styled.View`
-  flex-direction: column;
 `;
 
 const Row = styled.View`

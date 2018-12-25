@@ -1,9 +1,22 @@
 import * as React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import styled from "styled-components/native";
 import ImageBook from "./components/ImageBook";
+import api from "src/services/api";
 
-export default class HomeScreen extends React.Component {
+interface Props {
+  navigation?: any;
+}
+
+interface State {}
+
+export default class HomeScreen extends React.Component<Props, State> {
+  async componentDidMount() {
+    const search = this.props.navigation.getParam("search", "NO-ID");
+    const url = `volumes?q=\$\{${search.replace(" ", "%20")}\}`;
+    const response = await api.get(url);
+    console.tron.log(response);
+  }
   render() {
     return (
       <Container>
