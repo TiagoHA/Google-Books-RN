@@ -60,14 +60,18 @@ class BooksList extends React.Component<Props, State> {
       <Container>
         <Loading isLoading={isLoading}>
           <Content>
-            <FlatList
-              horizontal={false}
-              numColumns={3}
-              data={booksList}
-              onEndReached={this.loadMore}
-              keyExtractor={item => String(item.id)}
-              renderItem={this.renderImageBook}
-            />
+            {!booksList ? (
+              <Text>No books!</Text>
+            ) : (
+              <FlatList
+                horizontal={false}
+                numColumns={3}
+                data={booksList}
+                onEndReached={this.loadMore}
+                keyExtractor={item => String(item.id)}
+                renderItem={this.renderImageBook}
+              />
+            )}
           </Content>
         </Loading>
       </Container>
