@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { colors, metrics } from "src/styles";
+import { SafeAreaView } from "react-navigation";
 
 export const BackgroundImage = styled.Image`
   width: 100%;
@@ -10,7 +11,7 @@ export const BackgroundImage = styled.Image`
   opacity: 0.3;
 `;
 
-export const Container = styled.SafeAreaView`
+export const Container = styled(SafeAreaView)`
   flex: 1;
   background-color: ${colors.primary};
   align-items: center;
@@ -21,7 +22,6 @@ export const Content = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
-  top: -100px;
 `;
 
 export const Row = styled.View`

@@ -18,8 +18,11 @@ const Routes = createAppContainer(
         headerStyle: {
           backgroundColor: colors.primaryDark
         },
-        headerTintColor: colors.white,
-        headerBackTitle: null
+        headerTintColor: colors.black,
+        headerBackTitle: null,
+        headerTitleStyle: {
+          fontWeight: "bold"
+        }
       }
     }
   )

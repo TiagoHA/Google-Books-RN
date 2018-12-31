@@ -1,7 +1,5 @@
 import * as React from "react";
-import styled from "styled-components/native";
 import Divider from "src/commons/components/atoms/divider";
-import ImageBook from "../books_list/components/ImageBook";
 import Stars from "./components/stars";
 import Button from "./components/button";
 import FavoriteIcon from "./components/favoriteIcon";
@@ -18,6 +16,8 @@ import {
   Authors,
   Down
 } from "./styles";
+import ImageBook from "./components/image";
+import { Linking } from "react-native";
 
 interface Props {
   title: string;
@@ -27,7 +27,7 @@ interface Props {
   rating: number;
   image: string;
   description: string;
-  saleability: string;
+  buyLink: string;
 }
 
 class DetailScreen extends React.Component<Props> {
@@ -35,17 +35,23 @@ class DetailScreen extends React.Component<Props> {
     title: "Book Detail"
   };
   static defaultProps = {
-    title: "Logo Design Love: A Guide to Creating Iconic Brand Identities",
-    authors: "by David Airey",
-    pages: "2016 Pages",
-    price: "$9.99",
-    rating: 2,
-    image:
-      "https://www.google.com.br/url?sa=i&source=images&cd=&ved=2ahUKEwjqopHTx7vfAhVHj5AKHV6SCvYQjRx6BAgBEAU&url=https%3A%2F%2Fsmartmobilestudio.com%2Fdocumentation%2Fget-the-book%2F&psig=AOvVaw3IcJOpE9PasMTpprCjmIGR&ust=154584717244054"
+    title: "No title",
+    authors: "",
+    pages: "0 Page",
+    price: "$0.00",
+    rating: 0,
+    image: "",
+    buyLink: null
+  };
+
+  handleClick = () => {
+    const { buyLink } = this.props;
+    if (!buyLink) return () => {};
+
+    Linking.openURL(buyLink);
   };
 
   render() {
-    console.tron.log("PROPS DETAIL: ", this.props);
     const {
       title,
       authors,
@@ -53,8 +59,7 @@ class DetailScreen extends React.Component<Props> {
       price,
       rating,
       description,
-      image,
-      saleability
+      image
     } = this.props;
     return (
       <Container>
@@ -73,15 +78,16 @@ class DetailScreen extends React.Component<Props> {
                 </Column>
               </Row>
 
+              <Divider size={10} />
               <Row>
                 <Title>{price}</Title>
                 <Divider />
-                <Stars rating={rating} />
+                {rating > 0 && <Stars rating={rating} />}
               </Row>
             </Up>
 
             <Down>
-              <Button title="BUY" />
+              <Button title="BUY" onPress={this.handleClick} />
               <FavoriteIcon />
             </Down>
           </Right>
@@ -103,7 +109,7 @@ const mapStateToProps = ({
         description,
         imageLinks: { thumbnail } = { thumbnail: false }
       },
-      saleInfo: { saleability, listPrice: { amount } = { amount: false } }
+      saleInfo: { listPrice: { amount } = { amount: false }, buyLink = null }
     }
   }
 }) => ({
@@ -117,8 +123,8 @@ const mapStateToProps = ({
   rating: averageRating,
   description: description,
   image: thumbnail,
-  saleability: saleability,
-  price: amount ? `$ ${amount}` : ""
+  price: amount ? `$ ${amount}` : "",
+  buyLink: buyLink
 });
 
 export default connect(mapStateToProps)(DetailScreen);

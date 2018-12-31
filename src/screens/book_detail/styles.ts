@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { SafeAreaView } from "react-navigation";
 
 export const Up = styled.View`
   flex-direction: column;
@@ -25,7 +26,7 @@ export const Right = styled.View`
   flex: 1;
 `;
 
-export const Container = styled.SafeAreaView`
+export const Container = styled(SafeAreaView)`
   flex: 1;
   background-color: yellow;
   flex-direction: column;

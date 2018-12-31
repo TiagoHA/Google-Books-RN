@@ -5,25 +5,36 @@ import { Creators as BooksListActions } from "src/store/ducks/books_list";
 
 export function* getBooksRequest(action) {
   try {
-    const link = linkCreator(action.payload.data);
+    const link = linkCreator(action.payload.search);
     const response = yield call(api.get, link);
 
-    yield put(BooksListActions.getBooksSuccess(response.data.items));
+    yield put(
+      BooksListActions.getBooksSuccess({
+        search: action.payload.search,
+        response: response.data.items
+      })
+    );
   } catch (err) {
-    yield put(BooksListActions.getBooksError("Sem resultados"));
+    yield put(
+      BooksListActions.getBooksError({ error: err, message: "No results" })
+    );
   }
 }
 
-export function* getMoreBooksRequest(action) {
+export function* getMoreBooksRequest() {
   try {
-    const booksLength = yield select((state: any) => state.data.length);
-    const link = linkCreator(action.payload.search, booksLength + 1);
+    const search = yield select((state: any) => state.booksList.search);
+    const booksLength = yield select((state: any) => state.booksList.data);
+
+    const link = linkCreator(search, booksLength.length + 1);
 
     const response = yield call(api.get, link);
 
     yield put(BooksListActions.getMoreBooksSuccess(response.data.items));
   } catch (err) {
-    yield put(BooksListActions.getBooksError("Sem resultados"));
+    yield put(
+      BooksListActions.getMoreBooksError({ error: err, message: "No results" })
+    );
   }
 }
 

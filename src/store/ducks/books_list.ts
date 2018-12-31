@@ -2,14 +2,18 @@ export const Types = {
   ADD_REQUEST: "books/ADD_REQUEST",
   ADD_SUCCESS: "books/ADD_SUCCESS",
   ADD_FAILURE: "books/ADD_FAILURE",
-  ADD_MORE_SUCCESS: "books/ADD_MORE_SUCCESS"
+  ADD_MORE: "books/ADD_MORE",
+  ADD_MORE_SUCCESS: "books/ADD_MORE_SUCCESS",
+  ADD_MORE_FAILURE: "books/ADD_MORE_FAILURE"
 };
 
 const initialState = {
   search: "",
-  data: [],
+  data: <Object>[],
   dataLength: 0,
   loading: false,
+  loadingMore: false,
+  errorMsg: "",
   error: false
 };
 
@@ -18,15 +22,15 @@ export default function BooksList(state = initialState, action) {
     case Types.ADD_REQUEST:
       return {
         ...state,
-        search: action.data,
+        search: action.payload.search,
         loading: true
       };
 
     case Types.ADD_SUCCESS:
       return {
         ...state,
-        data: [...action.payload.data],
-        dataLength: action.payload.data.length,
+        data: [...action.payload.response],
+        dataLength: action.payload.response.length,
         loading: false,
         error: false
       };
@@ -35,15 +39,33 @@ export default function BooksList(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload.data
+        error: action.payload.error,
+        errorMsg: action.payload.message
+      };
+
+    case Types.ADD_MORE:
+      return {
+        ...state,
+        loadingMore: true
       };
 
     case Types.ADD_MORE_SUCCESS:
       return {
         ...state,
-        data: [...state.data, ...action.payload.data],
+        data: [...state.data, ...action.payload.response],
+        dataLength: state.dataLength + action.payload.response.length,
+        loadingMore: false,
         loading: false,
         error: false
+      };
+
+    case Types.ADD_MORE_FAILURE:
+      return {
+        ...state,
+        loadingMore: false,
+        loading: false,
+        error: action.payload.error,
+        errorMsg: action.payload.message
       };
 
     default:
@@ -52,31 +74,45 @@ export default function BooksList(state = initialState, action) {
 }
 
 export const Creators = {
-  getBooks: data => ({
+  getBooks: (search = null) => ({
     type: Types.ADD_REQUEST,
     payload: {
-      data
+      search
     }
   }),
 
-  getBooksSuccess: data => ({
+  getBooksSuccess: ({ response, search }) => ({
     type: Types.ADD_SUCCESS,
     payload: {
-      data
+      response,
+      search
     }
   }),
 
-  getBooksError: data => ({
+  getBooksError: ({ error, message }) => ({
     type: Types.ADD_FAILURE,
     payload: {
-      data
+      error,
+      message
     }
   }),
 
-  getMoreBooksSuccess: data => ({
+  getMoreBooks: () => ({
+    type: Types.ADD_MORE
+  }),
+
+  getMoreBooksSuccess: response => ({
     type: Types.ADD_MORE_SUCCESS,
     payload: {
-      data
+      response
+    }
+  }),
+
+  getMoreBooksError: ({ error, message }) => ({
+    type: Types.ADD_MORE_FAILURE,
+    payload: {
+      error,
+      message
     }
   })
 };

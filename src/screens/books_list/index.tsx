@@ -1,28 +1,44 @@
 import * as React from "react";
-import { ScrollView, StyleSheet, Text, FlatList, Alert } from "react-native";
-import styled from "styled-components/native";
+import { Text, FlatList, View, TextInput } from "react-native";
+import { createFilter } from "react-native-search-filter";
 import ImageBook from "./components/ImageBook";
 import { connect } from "react-redux";
 import Loading from "src/commons/components/atoms/loading";
-import { Creators as BooksDetail } from "src/store/ducks/books_detail";
+import { Creators as BooksDetailCreators } from "src/store/ducks/book_detail";
+import { Creators as BooksListCreators } from "src/store/ducks/books_list";
 import { bindActionCreators } from "redux";
+import { colors } from "src/styles";
+import { Container, Content } from "./styles";
+import SearchBar from "./components/searchBar";
+
+const KEYS_TO_FILTER = ["volumeInfo.title", "volumeInfo.authors"];
 
 interface Props {
-  navigation?: any;
-  isLoading?: boolean;
-  booksList?: [];
+  navigation: any;
+  isLoading: boolean;
+  isLoadingMore: boolean;
+  booksList: [];
+  search: String;
+  getBooks: Function;
   saveDetail: Function;
+  getMoreBooks: Function;
 }
 
 interface State {}
 
 class BooksList extends React.Component<Props, State> {
   static navigationOptions = {
-    title: "Books List"
+    title: "Books List",
+    headerTintColor: "black",
+    headerTitleStyle: {
+      fontWeight: "bold"
+    }
   };
 
   state = {
-    onRefresh: false
+    onRefresh: false,
+    contentSearch: "",
+    showSearch: false
   };
 
   navigateToDetail = (book: Object) => {
@@ -30,7 +46,20 @@ class BooksList extends React.Component<Props, State> {
     this.props.navigation.push("Detail");
   };
 
-  loadMore = () => {};
+  loadMore = () => {
+    this.props.getMoreBooks();
+  };
+
+  onRefresh = () => {
+    this.props.getBooks(this.props.search);
+  };
+
+  handleShowSearch = () =>
+    this.setState({ showSearch: !this.state.showSearch });
+
+  handleContentSearch = contentSearch => {
+    this.setState({ contentSearch });
+  };
 
   renderImageBook = ({ item }) => {
     const {
@@ -54,7 +83,10 @@ class BooksList extends React.Component<Props, State> {
   };
 
   render() {
-    const { isLoading, booksList } = this.props;
+    const { isLoading, booksList, isLoadingMore } = this.props;
+    const filteredBooks = booksList.filter(
+      createFilter(this.state.contentSearch, KEYS_TO_FILTER)
+    );
 
     return (
       <Container>
@@ -63,15 +95,23 @@ class BooksList extends React.Component<Props, State> {
             {!booksList ? (
               <Text>No books!</Text>
             ) : (
-              <FlatList
-                horizontal={false}
-                numColumns={3}
-                data={booksList}
-                onEndReached={this.loadMore}
-                keyExtractor={item => String(item.id)}
-                renderItem={this.renderImageBook}
-              />
+              <>
+                <SearchBar onChangeText={this.handleContentSearch} />
+
+                <FlatList
+                  horizontal={false}
+                  numColumns={3}
+                  data={filteredBooks}
+                  extraData={booksList}
+                  onEndReached={this.loadMore}
+                  keyExtractor={item => String(item.id)}
+                  renderItem={this.renderImageBook}
+                  onRefresh={this.onRefresh}
+                  refreshing={isLoading}
+                />
+              </>
             )}
+            <Loading isLoading={isLoadingMore} />
           </Content>
         </Loading>
       </Container>
@@ -80,25 +120,19 @@ class BooksList extends React.Component<Props, State> {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(BooksDetail, dispatch);
+  bindActionCreators(
+    { ...BooksDetailCreators, ...BooksListCreators },
+    dispatch
+  );
 
 const mapStateToProps = state => ({
   booksList: state.booksList.data,
-  isLoading: state.booksList.loading
+  isLoading: state.booksList.loading,
+  isLoadingMore: state.booksList.loadingMore,
+  search: state.booksList.search
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(BooksList);
-
-const Content = styled.View`
-  flex-direction: column;
-`;
-
-const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: yellow;
-  padding: 10px;
-  flex-direction: column;
-`;

@@ -3,12 +3,13 @@ import styled from "styled-components/native";
 
 interface Props {
   title: string;
+  onPress: Function;
 }
 
 export default function Button(props: Props) {
-  const { title } = props;
+  const { title, onPress } = props;
   return (
-    <Touchable>
+    <Touchable onPress={onPress}>
       <Text>{title}</Text>
     </Touchable>
   );

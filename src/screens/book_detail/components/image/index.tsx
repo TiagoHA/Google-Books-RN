@@ -5,47 +5,31 @@ const { width, height } = Dimensions.get("window");
 
 interface Props {
   image: string;
-  title?: string;
-  onPress?: Function;
 }
 
 export default function ImageBook(props: Props) {
-  const { image, title, onPress } = props;
-  const cutTitle = cutText(title);
+  const { image } = props;
 
   return (
-    <Button onPress={onPress}>
+    <Container>
       <Image
         source={{
           uri: image || imageBookDefault
         }}
         style={styles.image}
       />
-      {!!title && (
-        <TitleContainer>
-          <BookTitle>{cutTitle}</BookTitle>
-        </TitleContainer>
-      )}
-    </Button>
+    </Container>
   );
 }
 
 ImageBook.defaultProps = {
   title: "",
   image: "",
-  onPress: () => {}
+  onPress: null
 };
 
 const imageBookDefault =
   "https://www.google.com.br/url?sa=i&source=images&cd=&ved=2ahUKEwjqopHTx7vfAhVHj5AKHV6SCvYQjRx6BAgBEAU&url=https%3A%2F%2Fsmartmobilestudio.com%2Fdocumentation%2Fget-the-book%2F&psig=AOvVaw3IcJOpE9PasMTpprCjmIGR&ust=154584717244054";
-export function cutText(text: String = "", maxLetters: number = 40) {
-  if (text.length <= 0) {
-    return "";
-  } else if (text.length >= maxLetters) {
-    return `${text.substring(0, maxLetters)}...`;
-  }
-  return text;
-}
 
 const dimensionsContainer = {
   width: width / 3.4,
@@ -64,27 +48,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const Button = styled.TouchableOpacity`
+const Container = styled.View`
   margin: 2px;
   padding: 5px;
   height: ${dimensionsContainer.height}px;
   width: ${dimensionsContainer.width}px;
-`;
-
-const TitleContainer = styled.View`
-  width: ${dimensions.width}px;
-  background-color: rgba(52, 52, 52, 0.7);
-  z-index: 1;
-  position: absolute;
-  bottom: 7px;
-  align-self: center;
-  padding: 5px 3px;
-`;
-
-const BookTitle = styled.Text`
-  text-align: center;
-  color: white;
-  font-size: 12px;
-  flex: 1;
-  max-height: ${dimensions.height};
 `;

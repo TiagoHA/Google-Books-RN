@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import Icon from "react-native-vector-icons/dist/MaterialCommunityIcons";
 import styled from "styled-components/native";
 
@@ -10,7 +10,7 @@ interface State {
   active: boolean;
 }
 
-export default class FavoriteIcon extends Component<Props, State> {
+export default class FavoriteIcon extends React.Component<Props, State> {
   static defaultProps = {
     onPress: () => {}
   };
@@ -25,12 +25,8 @@ export default class FavoriteIcon extends Component<Props, State> {
   render() {
     const { active } = this.state;
     return (
-      <Favorite>
-        <FavIcon
-          name={active ? "heart" : "heart-outline"}
-          onPress={this.onPress}
-          active={active}
-        />
+      <Favorite onPress={this.onPress}>
+        <FavIcon name={active ? "heart" : "heart-outline"} active={active} />
       </Favorite>
     );
   }
