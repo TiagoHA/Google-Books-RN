@@ -47,6 +47,7 @@ class BooksList extends React.Component<Props, State> {
   };
 
   loadMore = () => {
+    if(this.state.contentSearch.length) return;
     this.props.getMoreBooks();
   };
 

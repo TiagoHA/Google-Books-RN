@@ -9,7 +9,7 @@ export default function SearchBar(props: Props) {
   const { onChangeText } = props;
   return (
     <Container>
-      <Input placeholder="Search" onChangeText={onChangeText} />
+      <Input placeholder="Search" onChangeText={onChangeText} clearButtonMode="always" />
     </Container>
   );
 }
