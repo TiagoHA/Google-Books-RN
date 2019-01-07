@@ -14,7 +14,7 @@ export default function Loading(props: Props) {
   if (isLoading) {
     return (
       <Container>
-        <ActivityIndicator color="black" size={30} style={{ flex: 1 }} />
+        <ActivityIndicator color="black" size={1} style={{ flex: 1 }} />
       </Container>
     );
   }
