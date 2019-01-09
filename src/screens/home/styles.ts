@@ -11,7 +11,7 @@ export const BackgroundImage = styled.Image`
   opacity: 0.3;
 `;
 
-export const Container = styled(SafeAreaView)`
+export const Container = styled.View`
   flex: 1;
   background-color: ${colors.primary};
   align-items: center;
