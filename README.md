@@ -7,4 +7,4 @@
 - [x] typescript
 - [x] styled-components
 - [x] reactotron
-- [x] react native + [redux]
+- [ ] TS-Lint
