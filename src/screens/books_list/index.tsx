@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Text, FlatList, View, TextInput } from "react-native";
+import { Text, FlatList } from "react-native";
 import { createFilter } from "react-native-search-filter";
 import ImageBook from "./components/ImageBook";
 import { connect } from "react-redux";
