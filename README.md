@@ -8,3 +8,4 @@
 - [x] styled-components
 - [x] reactotron
 - [ ] TS-Lint
+- [ ] Tests
