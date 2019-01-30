@@ -12,7 +12,8 @@
     "target": "esnext",
     "baseUrl": "./",
     "noImplicitAny": false,
-    "removeComments": true
+    "removeComments": true,
+    "noEmitOnError": false
   },
   "exclude": ["node_modules"]
 }

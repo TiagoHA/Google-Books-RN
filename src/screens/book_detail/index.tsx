@@ -1,5 +1,5 @@
 import * as React from "react";
-import Divider from "src/commons/components/atoms/divider";
+import Divider from "src/components/divider";
 import Stars from "./components/stars";
 import Button from "./components/button";
 import FavoriteIcon from "./components/favoriteIcon";
@@ -103,7 +103,7 @@ const mapStateToProps = ({
     detail: {
       volumeInfo: {
         pageCount,
-        title,
+        title = "",
         authors,
         averageRating,
         description,

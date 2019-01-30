@@ -3,11 +3,10 @@ import { Text, FlatList } from "react-native";
 import { createFilter } from "react-native-search-filter";
 import ImageBook from "./components/ImageBook";
 import { connect } from "react-redux";
-import Loading from "src/commons/components/atoms/loading";
+import Loading from "src/components/loading";
 import { Creators as BooksDetailCreators } from "src/store/ducks/book_detail";
 import { Creators as BooksListCreators } from "src/store/ducks/books_list";
 import { bindActionCreators } from "redux";
-import { colors } from "src/styles";
 import { Container, Content } from "./styles";
 import SearchBar from "./components/searchBar";
 
@@ -47,7 +46,7 @@ class BooksList extends React.Component<Props, State> {
   };
 
   loadMore = () => {
-    if(this.state.contentSearch.length) return;
+    if (this.state.contentSearch.length) return;
     this.props.getMoreBooks();
   };
 
@@ -66,7 +65,7 @@ class BooksList extends React.Component<Props, State> {
     const {
       id,
       volumeInfo: {
-        title,
+        title = '',
         imageLinks: { thumbnail } = {
           thumbnail:
             "https://smartmobilestudio.com/wp-content/uploads/2012/06/leather-book-preview-300x252.png"

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Divider from "src/commons/components/atoms/divider";
+import Divider from "src/components/divider";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Creators as BooksCreators } from "src/store/ducks/books_list";
