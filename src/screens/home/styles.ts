@@ -48,18 +48,17 @@ export const SubTitle = styled.Text`
 
 export const Input = styled.TextInput.attrs({
   autoFocus: false,
-  placeholder: 'search books',
+  placeholder: 'search ',
   autoCapitalize: 'none',
   autoCorrect: false,
   underlineColorAndroid: 'transparent',
 })`
-  padding: 50px 5px;
   max-width: 250px;
   background-color: white;
   border-radius: 5px;
   font-weight: 400;
   font-size: 16px;
-  padding: 5px 10px;
+  padding: 8px 10px;
   margin-bottom: ${metrics.baseMargin}px;
   flex: 1;
 `
