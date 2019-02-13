@@ -1,31 +1,31 @@
-import { createAppContainer, createStackNavigator } from "react-navigation";
-import colors from "src/styles/colors";
+import { createAppContainer, createStackNavigator } from 'react-navigation'
+import colors from 'src/styles/colors'
 
-import HomeScreen from "src/screens/home";
-import DetailScreen from "src/screens/book_detail";
-import ListScreen from "src/screens/books_list";
+import HomeScreen from 'src/screens/home'
+import DetailScreen from 'src/screens/book_detail'
+import ListScreen from 'src/screens/books_list'
 
 const Routes = createAppContainer(
   createStackNavigator(
     {
       Home: { screen: HomeScreen },
       Detail: { screen: DetailScreen },
-      List: { screen: ListScreen }
+      List: { screen: ListScreen },
     },
     {
-      initialRouteName: "Home",
+      initialRouteName: 'Home',
       defaultNavigationOptions: {
         headerStyle: {
-          backgroundColor: colors.primaryDark
+          backgroundColor: colors.primary,
         },
         headerTintColor: colors.black,
         headerBackTitle: null,
         headerTitleStyle: {
-          fontWeight: "bold"
-        }
-      }
-    }
-  )
-);
+          fontWeight: 'bold',
+        },
+      },
+    },
+  ),
+)
 
-export default Routes;
+export default Routes
