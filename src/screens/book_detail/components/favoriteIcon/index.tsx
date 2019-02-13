@@ -33,7 +33,7 @@ export default class FavoriteIcon extends React.Component<Props, State> {
 }
 
 const Favorite = styled.TouchableOpacity`
-  background-color: red;
+  background-color: #DC4B5D;
   justify-content: center;
   align-items: center;
   align-content: center;

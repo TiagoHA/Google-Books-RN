@@ -16,7 +16,7 @@ export default function Button(props: Props) {
 }
 
 const Touchable = styled.TouchableOpacity`
-  background-color: blue;
+  background-color: #4A90E2;
   height: 40px;
   max-width: 120px;
   border-radius: 20px;
