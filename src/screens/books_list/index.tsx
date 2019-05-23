@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Text, FlatList } from 'react-native'
 import { createFilter } from 'react-native-search-filter'
-import ImageBook from './components/ImageBook'
 import { connect } from 'react-redux'
 import Loading from 'src/components/loading'
 import { Creators as BooksDetailCreators } from 'src/store/ducks/book_detail'
@@ -9,11 +8,9 @@ import { Creators as BooksListCreators } from 'src/store/ducks/books_list'
 import { bindActionCreators } from 'redux'
 import { Container, Content } from './styles'
 import SearchBar from './components/searchBar'
+import { renderImageBook } from './components/renderImageBook'
 
 const KEYS_TO_FILTER = ['volumeInfo.title', 'volumeInfo.authors']
-
-const img =
-  'https://smartmobilestudio.com/wp-content/uploads/2012/06/leather-book-preview-300x252.png'
 
 interface Props {
   navigation: any
@@ -63,26 +60,6 @@ class BooksList extends React.Component<Props, State> {
     this.setState({ contentSearch })
   }
 
-  renderImageBook = ({ item }) => {
-    const {
-      id,
-      volumeInfo: {
-        title = '',
-        imageLinks: { thumbnail } = {
-          thumbnail: img,
-        },
-      },
-    } = item
-    return (
-      <ImageBook
-        key={String(id)}
-        title={title}
-        image={thumbnail}
-        onPress={() => this.navigateToDetail(item)}
-      />
-    )
-  }
-
   render() {
     const { isLoading, booksList, isLoadingMore } = this.props
     const filteredBooks = booksList.filter(
@@ -106,7 +83,7 @@ class BooksList extends React.Component<Props, State> {
                   extraData={booksList}
                   onEndReached={this.loadMore}
                   keyExtractor={item => String(item.id)}
-                  renderItem={this.renderImageBook}
+                  renderItem={renderImageBook(this.navigateToDetail)}
                   onRefresh={this.onRefresh}
                   refreshing={isLoading}
                 />

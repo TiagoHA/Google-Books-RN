@@ -9,7 +9,7 @@ export const Types = {
 
 const initialState = {
   search: '',
-  data: [Object],
+  data: [],
   dataLength: 0,
   loading: false,
   loadingMore: false,

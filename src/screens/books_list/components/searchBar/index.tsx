@@ -1,28 +1,19 @@
-import styled from "styled-components/native";
-import React from "react";
+import React from 'react'
+import { Container, Input } from 'src/screens/home/styles'
 
 interface Props {
-  onChangeText: Function;
+  onChangeText: Function
 }
 
 export default function SearchBar(props: Props) {
-  const { onChangeText } = props;
+  const { onChangeText } = props
   return (
     <Container>
-      <Input placeholder="Search" onChangeText={onChangeText} clearButtonMode="always" />
+      <Input
+        placeholder="Search"
+        onChangeText={onChangeText}
+        clearButtonMode="always"
+      />
     </Container>
-  );
+  )
 }
-
-const Container = styled.View`
-  flex-direction: row;
-`;
-
-const Input = styled.TextInput`
-  flex: 1;
-  padding: 5px;
-  border-width: 0.5px;
-  border-color: lightgray;
-  color: black;
-  margin-bottom: 5px;
-`;
